@@ -44,10 +44,10 @@ int main(){
     int choice; cin >> choice;
     if(choice == 1){
         cout << "Please enter the algebraic equation ending with '='(eg. -3+2/3=):\n";
-        vector <int> vnum;
+        vector <double> vnum;
         vector <char> vop;
         while(1){
-            int a; cin >> a;
+            double a; cin >> a;
             vnum.push_back(a);
             char b; cin >> b;
             if(b == '='){
@@ -71,32 +71,41 @@ int main(){
         cout << setprecision(20) << ans <<endl;
     }else if(choice == 2){
         cout << "Choose the unit of Angle:\n1. Radian\n2. Degrees\n";
+        unit:
         int unit; cin >> unit;
+        if(unit!= 1 && unit != 2){
+            cout << "Please enter a valid input!\n";
+            goto unit;
+        }
         cout << "Enter the Angle:\n";
         double angle; cin >> angle;
         if(unit == 2){
             angle = angle * (0.0174532925);
         }
         cout << "Choose the Operation:\n1. sin    4. cosec\n2. cos    5. sec\n3. tan    6. cot\n";
+        trig:
         int trig; cin >> trig;
         if(trig == 1){
-            cout << setprecision(20);
+            cout << setprecision(10);
             cout << sin(angle) <<endl;
         }else if(trig == 2){
-            cout << setprecision(20);
+            cout << setprecision(10);
             cout << cos(angle) <<endl;
         }else if(trig == 3){
-            cout << setprecision(20);
+            cout << setprecision(10);
             cout << sin(angle) / cos(angle) <<endl;;
         }else if(trig == 4){
-            cout << setprecision(20);
+            cout << setprecision(10);
             cout << 1 / sin(angle) <<endl;
         }else if(trig == 5){
-            cout << setprecision(20);
+            cout << setprecision(10);
             cout << 1 / cos(angle) <<endl;
         }else if(trig == 6){
-            cout << setprecision(20);
+            cout << setprecision(10);
             cout << cos(angle) / sin(angle) <<endl;
+        }else{
+            cout << "Please enter a valid input!\n";
+            goto trig;
         }
     }else if(choice == 3){
         cout << "Please enter a and b in the format a^b:\n";
@@ -106,7 +115,7 @@ int main(){
     }else if(choice == 4){
         goto end1;
     }else{
-        cout << "Please enter a valid input! (1,2,3)\n";
+        cout << "Please enter a valid input! (1,2,3,4)\n";
         goto start1;
     }
     cout << "Do you want to try again?: Y/N\n";
