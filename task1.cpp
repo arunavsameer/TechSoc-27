@@ -109,7 +109,7 @@ int main(){
         }
     }else if(choice == 3){
         cout << "Please enter a and b in the format a^b:\n";
-        cout << "Enter a:  "; int a; cin >> a;
+        cout << "Enter a:  "; double a; cin >> a;
         cout << "Enter b:  "; int b; cin >> b;
         cout << power(a, b) <<endl;
     }else if(choice == 4){
