@@ -11,3 +11,5 @@ v0:
 6. A user can credit or debit amount from ther account, and also see their name and balance.
 7. A user can also change their credentials like Password and Name.
 8. A user can't change their Account Number, i.e. IITI Roll number preferably.
+
+ps- For future updates, I am planning to add a loan option and option to delete an account.
