@@ -1,3 +1,3 @@
 # TechSoc-27
-goto branch task1 : calculator
-goto brach task2 : bank
+1. goto branch task1 : calculator
+2. goto brach task2 : bank
