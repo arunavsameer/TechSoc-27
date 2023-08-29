@@ -5,10 +5,11 @@ int main(){
     vector <string> password;
     vector <long long int> money;
     vector <string> name;
+    vector <long long int> acc_no;
     fstream bank;
     account_start:
+
         bank.open("bank_password.txt");
-        
         password.clear();
         string line7;
         if(bank.is_open()){
@@ -19,7 +20,6 @@ int main(){
         bank.close();
 
         bank.open("bank_money.txt", ios::in);
-        
         money.clear();
         string line2;
         if(bank.is_open()){
@@ -31,7 +31,6 @@ int main(){
         bank.close();
 
         bank.open("bank_name.txt", ios::in);
-        
         name.clear();
         string line6;
         if(bank.is_open()){
@@ -40,35 +39,32 @@ int main(){
             }
         }
         bank.close();
+        
+        bank.open("bank_accno.txt", ios::in);
+        acc_no.clear();
+        string line8;
+        if(bank.is_open()){
+            while(getline(bank, line8)){
+                long long int acc_roll = stoi(line8);
+                acc_no.push_back(acc_roll);
+            }
+        }
+        bank.close();
     start:
     
     cout << "Welcome to IITI Bank! Please choose the service...\n1. Login (If you already have an account)\n2. Sign Up(Create a new Account)\n3. exit\n";
     int choice1; cin >> choice1;
     if(choice1 == 2){
-        bank.open("bank_accno.txt", ios::in);
         cout << "Please enter your IITI Roll Number...\n";
-        vector <string> roll_check0;
-        string line5;
-        if(bank.is_open()){
-            while(getline(bank, line5)){
-                roll_check0.push_back(line5);
-            }
-        }
-        bank.close();
-        string accno; cin >> accno;
+        long long int accno; cin >> accno;
         int repeat = 1;
-        for(int i = 0; i < roll_check0.size(); i++){
-            if(accno == roll_check0[i]){
+        for(int i = 0; i < acc_no.size(); i++){
+            if(accno == acc_no[i]){
                 cout << "This Roll Number already exists. Please Login or Try another roll number...\n";
                 goto start;
             }
         }
-        bank.open("bank_accno.txt", ios::app);
-        if(bank.is_open()){
-            bank << accno <<endl;
-            bank.close();
-        }
-        bank.close();
+        acc_no.push_back(accno);
         
         cout << "Please enter your Name...(one word)\n";
         string accname; cin >> accname;
@@ -90,27 +86,17 @@ int main(){
         goto start;
     }else if(choice1 == 1){
         login:
-        string line;
-        vector <string> roll_check;
-        roll_check.clear();
-        bank.open("bank_accno.txt", ios::in);
-        if(bank.is_open()){
-            while(getline(bank, line)){
-                roll_check.push_back(line);
-            }
-        }
-        bank.close();
         cout << "Please enter your registered IITI roll number...\n";
-        string rollno; cin >> rollno;
+        long long int rollno; cin >> rollno;
         int count = 1;
-        for(int i = 0; i < roll_check.size(); i++){
-            if(rollno == roll_check[i]){
+        for(int i = 0; i < acc_no.size(); i++){
+            if(rollno == acc_no[i]){
                 goto l_pass;
             }else{
                 count++;
             }
         }
-        if(count == roll_check.size() + 1){
+        if(count == acc_no.size() + 1){
             err1:
             cout << "This number isn't registered!\n1. Try another ID\n2. Sign Up\n";
             int choice2; cin >> choice2;
@@ -180,18 +166,18 @@ int main(){
         }else if(choice3 == 2){
             
             long long int send_money;
-            string rcv_roll;
+            long long int rcv_roll;
             cout << "Please enter the Recipient's IITI Roll number...\n";
             cin >> rcv_roll;
             int count_rcv = 1;
-            for(int i = 0; i < roll_check.size(); i++){
-                if(rcv_roll == roll_check[i]){
+            for(int i = 0; i < acc_no.size(); i++){
+                if(rcv_roll == acc_no[i]){
                     goto send;
                 }else{
                     count_rcv++;
                 }
             }
-            if(count_rcv > roll_check.size()){
+            if(count_rcv > acc_no.size()){
                 cout << "Reciever's Roll number does not exist! Try again...\n";
                 goto account;
             }
@@ -293,6 +279,16 @@ int main(){
     while(bank.is_open()){
         for(int i = 0; i < password.size(); i++){
             bank << password[i] <<endl;
+        }
+        bank.close();
+    }
+
+    bank.open("bank_accno.txt", ios :: out);
+    bank.close();
+    bank.open("bank_accno.txt", ios :: app);
+    while(bank.is_open()){
+        for(int i = 0; i < acc_no.size(); i++){
+            bank << acc_no[i] <<endl;
         }
         bank.close();
     }
